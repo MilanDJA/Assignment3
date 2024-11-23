@@ -94,9 +94,9 @@ sudo journalctl -u generate-index.service
 **Task 3: Configure nginx**  
 1. **Update Main `nginx.conf`** : 
   - Edit `/etc/nginx/nginx.conf`:
-  - Change the top #user
+  - Change the top #user ____
 ```nginx
-user webgen;
+#user webgen;
 ```
  
 2. **Server Block File (`/etc/nginx/sites-available/webgen`)** :
