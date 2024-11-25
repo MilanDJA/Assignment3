@@ -33,7 +33,7 @@ sudo chown -R webgen:webgen /var/lib/webgen
 ---
 
 Task 2: Configure `generate-index.service` and `generate-index.timer` 
-1. **Service File (`/etc/systemd/system/generate-index.service`)** :
+1. **Service File (`nvim /etc/systemd/system/generate-index.service`)** :
 
 ```ini
 [Unit]
@@ -50,7 +50,7 @@ ExecStart=/var/lib/webgen/bin/generate_index
 WantedBy=multi-user.target
 ```
  
-2. **Timer File (`/etc/systemd/system/generate-index.timer`)** :
+2. **Timer File (`nvim /etc/systemd/system/generate-index.timer`)** :
 
 ```ini
 [Unit]
@@ -92,14 +92,20 @@ sudo journalctl -u generate-index.service
 ---
 
 **Task 3: Configure nginx**  
-1. **Update Main `nginx.conf`** : 
+1. **Update Main `nvim nginx.conf`** : 
   - Edit `/etc/nginx/nginx.conf`:
   - Change the top #user ____
 ```nginx
 #user webgen;
 ```
- 
-2. **Server Block File (`/etc/nginx/sites-available/webgen`)** :
+2. **Create new directories** :
+
+```bash
+mkdir /etc/nginx/sites-available
+mkdir /etc/nginx/sites-enabled
+```
+
+3. **Server Block File (`nvim /etc/nginx/sites-available/webgen`)** :
 
 ```ini
 server {
@@ -113,12 +119,6 @@ server {
         try_files $uri $uri/ =404;
     }
 }
-```
- 3. **Create new directories** :
-
-```bash
-mkdir /etc/nginx/sites-available
-mkdir /etc/nginx/sites-enabled
 ```
 4. **Enable the Server Block with symlink** :
 
@@ -155,7 +155,8 @@ sudo ufw limit ssh
 sudo ufw allow 80
 sudo ufw enable
 ```
- 
+ - allow ssh and http makes sure you are not locked out of your ssh session upon enabling
+ - limit ssh helps stop brute force attacks
 2. **Check Firewall Status** :
 
 ```bash
@@ -186,3 +187,8 @@ Enhancing `generate_index` Script**
   - Verify permissions and required files before execution.
 
   - Log errors to a file for debugging.
+
+## References
+
+  - [Arch Linux Wiki: Nginx](https://wiki.archlinux.org/title/Nginx)
+  - [Arch Linux Wiki: Nginx Server Blocks](https://wiki.archlinux.org/title/Nginx#Server_blocks)
