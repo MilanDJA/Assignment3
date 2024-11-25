@@ -173,7 +173,7 @@ sudo ufw status verbose
 
 ---
 
-Enhancing `generate_index` Script**  
+Enhancing `generate_index` Script 
 1. Additional Information to Include:
  
   - CPU load (from `uptime`).
